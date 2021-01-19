@@ -4,8 +4,21 @@ import pandas as pd
 
 # Dataset
 dataset = pd.read_csv("Restaurant_Reviews.tsv",delimiter="\t",quoting=3)
-X = dataset.iloc[:,:-1].values
-Y = dataset.iloc[:,1].values
 
-# Splitting the dataset to training and test set
-from sklearn.model_selection import train_test_split
+# Cleaning the dataset
+import re
+import nltk
+nltk.download("stopwords")
+from nltk.corpus import stopwords
+from nltk.stem.porter import PorterStemmer
+
+corpus = []
+
+for i in range(0, 1000):
+    review = re.sub('[^a-zA-Z]', ' ', dataset["Review"][i])
+    review.lower()
+    review.split()
+    ps = PorterStemmer()
+    review = [ps.stem(word) for word in review if not word in set(stopwords.words("english"))]
+    review = ' '.join(review)
+    corpus.append(review)
