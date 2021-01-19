@@ -35,7 +35,7 @@ y = dataset.iloc[:, -1].values
 # Splitting the data
 from sklearn.model_selection import train_test_split
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0)
 
 # Training the model
 from sklearn.naive_bayes import GaussianNB
@@ -43,3 +43,9 @@ from sklearn.naive_bayes import GaussianNB
 classifier = GaussianNB()
 classifier.fit(X_train, y_train)
 y_pred = classifier.predict(X_test)
+
+# Checking accuracy
+from sklearn.metrics import confusion_matrix, accuracy_score
+cm = confusion_matrix(y_test, y_pred)
+accuracy = accuracy_score(y_test,y_pred)
+print(cm,accuracy)
